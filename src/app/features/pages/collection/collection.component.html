@@ -1,0 +1,123 @@
+<div class="container mt-4">
+    <div class="row">
+      <div class="col-auto me-5" style="max-width: 280px">
+        <form class="bg-secondary-subtle p-2 rounded" style="width: 280px">
+          <div class="d-flex justify-content-between px-3 mb-3">
+            <span>Filter</span>
+            <span class="text-capitalize">Clear all</span>
+          </div>
+          <div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">
+                <div class="d-flex justify-content-between">
+                  <span>Price</span>
+                  <button
+                    type="button"
+                    class="btn btn-link"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#collapsePrice"
+                  >
+                    <i class="bi bi-chevron-down"></i>
+                  </button>
+                </div>
+                <div
+                  class="collapse input-group input-group-sm"
+                  id="collapsePrice"
+                >
+                  <span class="input-group-text">$</span>
+                  <input type="text" class="form-control" />
+                  <input type="text" class="form-control" />
+                </div>
+              </li>
+              <li class="list-group-item">
+                <div class="d-flex justify-content-between">
+                  <span>Product type</span>
+                  <button
+                    type="button"
+                    class="btn btn-link"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#collapseCategory"
+                  >
+                    <i class="bi bi-chevron-down"></i>
+                  </button>
+                </div>
+                <ul class="collapse list-group" id="collapseCategory">
+                  <li class="list-group-item border border-0">
+                    <div class="form-check">
+                      <input
+                        type="checkbox"
+                        class="form-check-input"
+                        id="Checkbox 1"
+                      />
+                      <label
+                        for="Checkbox 1"
+                        class="form-check-label stretched-link"
+                        >Checkbox 1</label
+                      >
+                    </div>
+                  </li>
+                  <li class="list-group-item border border-0">
+                    <div class="form-check">
+                      <input type="checkbox" class="form-check-input" />
+                      <label for="" class="form-check-label stretched-link"
+                        >Checkbox 2</label
+                      >
+                    </div>
+                  </li>
+                  <li class="list-group-item border border-0">
+                    <div class="form-check">
+                      <input type="checkbox" class="form-check-input" />
+                      <label for="" class="form-check-label stretched-link"
+                        >Checkbox 3</label
+                      >
+                    </div>
+                  </li>
+                  <li class="list-group-item border border-0">
+                    <div class="form-check">
+                      <input type="checkbox" class="form-check-input" />
+                      <label for="" class="form-check-label stretched-link"
+                        >Checkbox 4</label
+                      >
+                    </div>
+                  </li>
+                  <li class="list-group-item border border-0">
+                    <div class="form-check">
+                      <input type="checkbox" class="form-check-input" />
+                      <label for="" class="form-check-label stretched-link"
+                        >Checkbox 5</label
+                      >
+                    </div>
+                  </li>
+                  <li class="list-group-item border border-0">
+                    <div class="form-check">
+                      <input type="checkbox" class="form-check-input" />
+                      <label for="" class="form-check-label stretched-link"
+                        >Checkbox 6</label
+                      >
+                    </div>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </form>
+      </div>
+      <div class="col">
+        <div class="row">
+          <div
+            *ngFor="let listing of listings"
+            class="col-auto col-sm-6 col-md-4 col-lg-3 mb-3"
+          >
+            <div class="card" (click)="navigateToListing(listing.slug)">
+              <img *ngIf="listing.images !== null"  [src]="'http://localhost:3000' + listing.images[0]" class="card-img-top" alt="" />
+              <div class="card-body">
+                <h5 class="card-title">{{ listing.name }}</h5>
+                <p class="card-text">$ {{ listing.price }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

@@ -1,0 +1,111 @@
+<!-- <section class="text-center mb-5">
+  <h1>grow<span>it</span></h1>
+  <p>
+    grow<span>it</span> is an online marketplace where users can purchase
+    quality vegetables, plants, crops and other related goods sourced directly
+    from our providers.
+  </p>
+</section> -->
+
+<main class="container">
+  <div class="d-flex justify-content-between mb-3">
+    <h1 class="fs-5">Sign in</h1>
+    <button
+      data-bs-toggle="modal"
+      data-bs-target="#signUpModal"
+      class="btn btn-outline-success btn-sm"
+    >
+      Sign up
+    </button>
+  </div>
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <div class="mb-3">
+      <div>
+        <label
+          for="emailOrPhone"
+          class="form-label fw-medium text-body-secondary"
+          >Email address or phone number</label
+        >
+        <input
+          type="text"
+          id="emailOrPhone"
+          formControlName="emailOrPhone"
+          class="form-control text-body-secondary px-3 py-2 lh-lg"
+        />
+      </div>
+
+      <div
+        *ngIf="
+          loginForm.get('emailOrPhone')?.invalid &&
+          (loginForm.get('emailOrPhone')?.touched ||
+            loginForm.get('emailOrPhone')?.dirty)
+        "
+        class="text-danger"
+      >
+        <div *ngIf="(loginForm.get('emailOrPhone')?.errors)?.['required']">
+          <small>Email or phone number is required.</small>
+        </div>
+        <div *ngIf="(loginForm.get('emailOrPhone')?.errors)?.['minlength']">
+          <small
+            >Email or phone number must be at least 4 characters long.</small
+          >
+        </div>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <div>
+        <label for="password" class="form-label fw-medium text-body-secondary"
+          >Password</label
+        >
+        <input
+          type="text"
+          id="password"
+          formControlName="password"
+          class="form-control text-body-secondary px-3 py-2 lh-lg"
+        />
+      </div>
+
+      <div
+        *ngIf="
+          loginForm.get('password')?.invalid &&
+          (loginForm.get('password')?.touched ||
+            loginForm.get('password')?.dirty)
+        "
+        class="text-danger"
+      >
+        <div *ngIf="loginForm.get('password')?.errors?.['required']">
+          <small>Password is required.</small>
+        </div>
+        <div *ngIf="loginForm.get('password')?.errors?.['minlength']">
+          <small>Password must be at least 8 characters long.</small>
+        </div>
+        <div *ngIf="loginForm.get('password')?.errors?.['maxlength']">
+          <small>Password cannot be more than 15 characters long.</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <div class="d-grid">
+        <button
+          type="submit"
+          class="btn btn-outline-success fw-medium p-2"
+          data-bs-dismiss="modal"
+        >
+          Log in
+        </button>
+      </div>
+    </div>
+    <div class="mb-3 p-2 d-flex justify-content-center" style="cursor: pointer">
+      <span class="text-center pb-1 forgotten-password-link"
+        >Forgotten password?</span
+      >
+    </div>
+    <!-- <div class="mb-3 d-flex justify-content-center">
+      <button type="button" class="btn btn-success px-3 py-2">
+        Create new account
+      </button>
+    </div> -->
+  </form>
+</main>

@@ -1,0 +1,14 @@
+form {
+  max-width: 596.5px;
+}
+
+form .btn-link {
+  &:active,
+  &:hover {
+    color: inherit;
+  }
+}
+
+.dropdown {
+  cursor: pointer;
+}

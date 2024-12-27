@@ -1,0 +1,15 @@
+.category-block {
+  border: 1px solid rgb(193, 199, 208);
+  border-radius: 5px;
+  font-size: 14px;
+  padding: 12px;
+  display: flex;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.selected-category {
+  border-color: rgb(0, 102, 204);
+  color: rgb(0, 102, 204);
+  background-color: rgba(0, 102, 204, 0.1);
+}

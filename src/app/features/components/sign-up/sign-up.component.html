@@ -1,0 +1,162 @@
+<main class="container">
+  <div class="d-flex justify-content-between align-items-start mb-3">
+    <div>
+      <h1 class="fs-5">Sign Up</h1>
+      <p class="fs-6">It's quick and easy.</p>
+    </div>
+    <button
+      data-bs-toggle="modal"
+      data-bs-target="#loginModal"
+      class="btn btn-outline-success btn-sm"
+    >
+      Log in
+    </button>
+  </div>
+
+  <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
+    <div class="mb-3">
+      <div class="row">
+        <div class="col">
+          <div>
+            <label
+              for="firstName"
+              class="form-label fw-medium text-body-secondary"
+              >First name</label
+            >
+            <input
+              type="text"
+              id="firstName"
+              formControlName="firstName"
+              class="form-control text-body-secondary px-3 py-2 lh-lg"
+            />
+          </div>
+
+          <div
+            *ngIf="
+              signUpForm.get('firstName')?.invalid &&
+              (signUpForm.get('firstName')?.touched ||
+                signUpForm.get('firstName')?.dirty)
+            "
+            class="text-danger"
+          >
+            <div *ngIf="(signUpForm.get('firstName')?.errors)?.['required']">
+              <small>First name is required.</small>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div>
+            <label
+              for="lastName"
+              class="form-label fw-medium text-body-secondary"
+              >Surname</label
+            >
+            <input
+              type="text"
+              id="lastName"
+              formControlName="lastName"
+              class="form-control text-body-secondary px-3 py-2 lh-lg"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="phoneNumber" class="form-label fw-medium text-body-secondary"
+        >Phone number</label
+      >
+      <input
+        type="text"
+        id="phoneNumber"
+        formControlName="phoneNumber"
+        class="form-control text-body-secondary px-3 py-2 lh-lg"
+        maxlength="10"
+      />
+
+      <div
+        *ngIf="
+          signUpForm.get('phoneNumber')?.invalid &&
+          (signUpForm.get('phoneNumber')?.touched ||
+            signUpForm.get('phoneNumber')?.dirty)
+        "
+        class="text-danger"
+      >
+        <div *ngIf="(signUpForm.get('phoneNumber')?.errors)?.['required']">
+          <small>Phone number is required.</small>
+        </div>
+        <div *ngIf="(signUpForm.get('phoneNumber')?.errors)?.['minlength']">
+          <small>Phone number must be at least 10 characters long.</small>
+        </div>
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="phoneNumber" class="form-label fw-medium text-body-secondary"
+        >Email</label
+      >
+      <input
+        type="text"
+        id="mail"
+        formControlName="mail"
+        class="form-control text-body-secondary px-3 py-2 lh-lg"
+      />
+
+      <div
+        *ngIf="
+          signUpForm.get('mail')?.invalid &&
+          (signUpForm.get('mail')?.touched || signUpForm.get('mail')?.dirty)
+        "
+        class="text-danger"
+      >
+        <div *ngIf="(signUpForm.get('mail')?.errors)?.['required']">
+          <small>Email is required.</small>
+        </div>
+        <div *ngIf="(signUpForm.get('mail')?.errors)?.['email']">
+          <small>Email address is not valid.</small>
+        </div>
+      </div>
+    </div>
+    <div class="mb-4">
+      <label for="password" class="form-label fw-medium text-body-secondary"
+        >Password</label
+      >
+      <input
+        type="text"
+        id="password"
+        formControlName="password"
+        class="form-control text-body-secondary px-3 py-2 lh-lg"
+      />
+
+      <div
+        *ngIf="
+          signUpForm.get('password')?.invalid &&
+          (signUpForm.get('password')?.touched ||
+            signUpForm.get('password')?.dirty)
+        "
+        class="text-danger"
+      >
+        <div *ngIf="signUpForm.get('password')?.errors?.['required']">
+          <small>Password is required.</small>
+        </div>
+        <div *ngIf="signUpForm.get('password')?.errors?.['minlength']">
+          <small>Password must be at least 8 characters long.</small>
+        </div>
+        <div *ngIf="signUpForm.get('password')?.errors?.['maxlength']">
+          <small>Password cannot be more than 15 characters long.</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <div class="d-grid">
+        <button
+          type="submit"
+          class="btn btn-outline-success fw-medium p-2"
+          data-bs-dismiss="modal"
+        >
+          Submit
+        </button>
+      </div>
+    </div>
+  </form>
+</main>

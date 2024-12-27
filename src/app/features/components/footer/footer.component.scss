@@ -1,0 +1,42 @@
+footer {
+  background-color: rgb(232, 232, 232);
+  li {
+    background-color: rgb(232, 232, 232);
+    font-size: 0.75rem;
+  }
+}
+
+.footer-block__newsletter {
+  .footer-block__newsletter__heading {
+    font-size: 0.9375rem;
+    margin-bottom: 12px;
+  }
+
+  .footer-block__newsletter__subheading {
+    font-size: 0.75rem;
+  }
+}
+
+.list-group-horizontal {
+  li {
+    padding-left: 0;
+  }
+  i {
+    padding: 12px;
+    // border: 2px solid red;
+    background-color: #fff;
+  }
+}
+
+
+
+h2 {
+  font-size: 0.9375rem;
+}
+
+@media (min-width: 982px) {
+    .m-150 {
+        margin-left: 150px;
+        margin-right: 150px;
+      }
+}

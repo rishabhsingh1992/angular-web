@@ -1,0 +1,30 @@
+<div class="container my-2">
+  <h1 class="fs-4 mb-4">FAQ</h1>
+
+  <div *ngFor="let faq of faqs; let i = index">
+    <div
+      class="accordion accordion-flush shadow-sm mb-3 rounded-1"
+      id="accordionFAQ"
+    >
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button
+            class="accordion-button collapsed"
+            type="button"
+            data-bs-toggle="collapse"
+            [attr.data-bs-target]="'#faq' + i"
+            aria-expanded="false"
+            [attr.aria-controls]="'faq' + i"
+          >
+            {{ faq.question }}
+          </button>
+        </h2>
+        <div [id]="'faq' + i" class="accordion-collapse collapse">
+          <div class="accordion-body">
+            {{ faq.answer }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

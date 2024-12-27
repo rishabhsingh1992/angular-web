@@ -1,0 +1,166 @@
+<div class="container">
+  <form [formGroup]="listingForm" (ngSubmit)="onSubmit()">
+    <div class="mb-3" *ngIf="listingFormSubmitted" class="text-danger">
+      <span
+        >**Please fill in all required fields correctly before submitting.
+      </span>
+    </div>
+
+    <div class="mb-3">
+      <div>
+        <label for="name" class="form-label">Name</label>
+        <input
+          type="text"
+          formControlName="name"
+          id="name"
+          class="form-control"
+        />
+      </div>
+      <div
+        *ngIf="
+          listingForm.get('name')?.invalid &&
+          (listingForm.get('name')?.touched || listingForm.get('name')?.dirty)
+        "
+        class="text-danger"
+      >
+        <div *ngIf="(listingForm.get('name')?.errors)?.['required']">
+          <small>Name is required.</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="description" class="form-label">Short Description</label>
+      <textarea
+        type="text"
+        formControlName="description"
+        id="description"
+        class="form-control"
+      ></textarea>
+    </div>
+
+    <div class="mb-3">
+      <div>
+        <label for="category" class="form-label">Category</label>
+        <select
+          formControlName="category"
+          id="category"
+          class="form-select"
+          (change)="onListingCategoryChange()"
+        >
+          <option value="" disabled>Select Category</option>
+          <option *ngFor="let category of categories" [ngValue]="category">
+            {{ category.name }}
+          </option>
+        </select>
+      </div>
+      <div
+        *ngIf="
+          listingForm.get('category')?.invalid &&
+          (listingForm.get('category')?.touched ||
+            listingForm.get('category')?.dirty)
+        "
+        class="text-danger"
+      >
+        <div *ngIf="(listingForm.get('category')?.errors)?.['required']">
+          <small>Category is required.</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <div>
+        <label for="images" class="form-label">Add Images</label>
+        <input
+          type="file"
+          class="form-control"
+          id="images"
+          (change)="addListingImage($event)"
+        />
+      </div>
+      <div *ngIf=""></div>
+    </div>
+
+    <div class="mb-3">
+      <div>
+        <label for="price" class="form-label">Price</label>
+        <input
+          type="number"
+          formControlName="price"
+          id="price"
+          class="form-control"
+        />
+      </div>
+
+      <div
+        *ngIf="
+          listingForm.get('price')?.invalid &&
+          (listingForm.get('price')?.touched || listingForm.get('price')?.dirty)
+        "
+        class="text-danger"
+      >
+        <div *ngIf="(listingForm.get('price')?.errors)?.['required']">
+          <small>Price is required.</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <div>
+        <label for="stock" class="form-label">Stock</label
+        ><input
+          type="number"
+          formControlName="stock"
+          id="stock"
+          class="form-control"
+        />
+      </div>
+
+      <div
+        *ngIf="
+          listingForm.get('stock')?.invalid &&
+          (listingForm.get('stock')?.touched || listingForm.get('stock')?.dirty)
+        "
+        class="text-danger"
+      >
+        <div *ngIf="(listingForm.get('stock')?.errors)?.['required']">
+          <small>Stock is required.</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <div>
+        <label for="shippingWeight" class="form-label">Shipping Weight</label>
+        <input
+          type="number"
+          formControlName="shippingWeight"
+          class="form-control"
+          id="shippingWeight"
+        />
+      </div>
+      <div *ngIf=""></div>
+    </div>
+
+    <div class="mb-3">
+      <div>
+        <label for="shippingLeadTime" class="form-label"
+          >Shipping Lead Time</label
+        >
+        <input
+          type="number"
+          formControlName="shippingLeadTime"
+          class="form-control"
+          id="shippingLeadTime"
+        />
+      </div>
+      <div *ngIf=""></div>
+    </div>
+
+    <div class="d-grid">
+      <button type="submit" class="btn btn-success">
+        {{ edit ? "Update" : "Add" }}
+      </button>
+    </div>
+  </form>
+</div>

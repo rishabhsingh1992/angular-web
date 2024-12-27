@@ -1,0 +1,187 @@
+<header>
+  <nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+      <a class="navbar-brand fs-1 fw-semibold mx-5" [routerLink]="['/']"
+        ><span class="logo1">Grow</span><span class="logo2">It</span></a
+      >
+      <button
+        type="button"
+        class="navbar-toggler"
+        data-bs-toggle="collapse"
+        data-bs-target="#topNavbar"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="topNavbar">
+        <form class="d-flex flex-grow-1 mx-4" role="search">
+          <div class="input-group">
+            <input
+              type="search"
+              class="form-control rounded-start-pill ps-4"
+              placeholder="Let's get growing!"
+            />
+            <button type="button" class="btn btn-success rounded-end-pill px-4">
+              <i class="bi bi-search"></i>
+            </button>
+          </div>
+        </form>
+        <ul class="navbar-nav flex-row justify-content-evenly mt-2 mt-lg-0">
+          <li
+            *ngIf="!isUserLoggedIn"
+            class="nav-item"
+            data-bs-toggle="modal"
+            data-bs-target="#loginModal"
+          >
+            <a class="nav-link">
+              <div class="d-flex">
+                <i class="bi bi-person me-1"></i>
+                <div
+                  class="d-flex flex-column justify-content-center fw-semibold"
+                  style="font-size: 0.75rem"
+                >
+                  <span>Log in</span>
+                  <span>Sign up</span>
+                </div>
+              </div>
+            </a>
+          </li>
+          <li *ngIf="isUserLoggedIn" class="nav-item dropdown">
+            <a
+              class="nav-link"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <i class="bi bi-person me-1"></i>
+            </a>
+            <ul class="dropdown-menu">
+              <li routerLink="/account/profile">
+                <a class="dropdown-item">
+                  <div class="d-flex align-items-center">
+                    <i class="bi bi-person"></i>
+                    <span class="fw-semibold ms-2" style="font-size: 0.75rem"
+                      >My Profile</span
+                    >
+                  </div>
+                </a>
+              </li>
+              <li routerLink="/account/addresses">
+                <a class="dropdown-item"
+                  ><div class="d-flex align-items-center">
+                    <i class="bi bi-geo-alt"></i>
+                    <span class="fw-semibold ms-2" style="font-size: 0.75rem"
+                      >My Addresses</span
+                    >
+                  </div></a
+                >
+              </li>
+              <li (click)="logout()">
+                <a class="dropdown-item"
+                  ><div class="d-flex align-items-center">
+                    <i class="bi bi-power"></i>
+                    <span class="fw-semibold ms-2" style="font-size: 0.75rem"
+                      >Log out</span
+                    >
+                  </div></a
+                >
+              </li>
+              <li><hr class="dropdown-divider" /></li>
+              <li
+                [routerLink]="
+                  isUserSeller ? '/seller/listings' : '/seller/onboarding'
+                "
+              >
+                <a class="dropdown-item">
+                  <div class="d-flex align-items-center">
+                    <i class="bi bi-shop"></i>
+                    <span class="fw-semibold ms-2" style="font-size: 0.75rem">
+                      {{ isUserSeller ? "Go To Listings" : "Become a Seller" }}
+                    </span>
+                  </div>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item mx-2" routerLink="/account/wishlist">
+            <a class="nav-link">
+              <i class="bi bi-heart"></i>
+            </a>
+          </li>
+          <li class="nav-item" routerLink="/seller/listings">
+            <a class="nav-link">
+              <i class="bi bi-cart"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <ul class="nav justify-content-center">
+    <li
+      *ngFor="let category of categories"
+      class="nav-item dropdown"
+      [class.dropdown]="category.categories.length"
+    >
+      <a
+        class="nav-link"
+        [class.dropdown-toggle]="category.categories.length"
+        [attr.data-bs-toggle]="category.categories.length ? 'dropdown' : null"
+        [attr.role]="category.categories.length ? 'button' : null"
+      >
+        <span class="nav-link__text">{{ category.name }}</span>
+      </a>
+      <ul *ngIf="category.categories.length" class="dropdown-menu">
+        <li *ngFor="let subCategory of category.categories">
+          <a
+            (click)="navigateToCollection(subCategory)"
+            class="dropdown-item"
+            >{{ subCategory.name }}</a
+          >
+        </li>
+      </ul>
+    </li>
+  </ul>
+</header>
+
+<!-- Login Modal -->
+
+<div
+  class="modal fade"
+  id="loginModal"
+  tabindex="-1"
+  aria-labelledby="loginModal"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div
+      class="modal-content rounded-4 px-2 py-3"
+      style="background-color: #fffafa"
+    >
+      <div class="modal-body">
+        <app-login></app-login>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Signup Modal -->
+
+<div
+  class="modal fade"
+  id="signUpModal"
+  tabindex="-1"
+  aria-labelledby="signUpModal"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div
+      class="modal-content rounded-4 px-2 py-3"
+      style="background-color: #fffafa"
+    >
+      <div class="modal-body">
+        <app-sign-up></app-sign-up>
+      </div>
+    </div>
+  </div>
+</div>
