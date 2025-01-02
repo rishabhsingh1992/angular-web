@@ -5,15 +5,17 @@ import { HttpClient, HttpParams } from '@angular/common/http';
   providedIn: 'root',
 })
 export class AccountService {
-  userId: string | null = localStorage.getItem('userId');
-  // userId: string | null = "674ea6af349791add68cd765";
-  userIdObj = { userId: this.userId };
-
   constructor(private http: HttpClient) {}
 
+  private getUserId(): string | null {
+    return localStorage.getItem('userId');
+  }
+
   getAddressesByUserId() {
-    const params = this.userId
-      ? new HttpParams().set('userId', this.userId)
+    const userId = this.getUserId();
+
+    const params = userId
+      ? new HttpParams().set('userId', userId)
       : new HttpParams();
 
     return this.http.get<any>(
@@ -29,25 +31,41 @@ export class AccountService {
   }
 
   addAddress(payload: any) {
-    return this.http.post(`http://localhost:3000/api/address`, {
-      ...this.userIdObj,
+    const userId = this.getUserId();
+
+    const params = userId
+      ? new HttpParams().set('userId', userId)
+      : new HttpParams();
+
+    return this.http.post(
+      'http://localhost:3000/api/address/add-address',
       payload,
-    });
+      { params }
+    );
   }
 
   updateAddress(addressId: string | null, payload: any) {
+    const userIdObj = { userId: this.getUserId() };
+
     return this.http.put(
       `http://localhost:3000/api/address/update-address-by-address-id`,
       {
         addressId,
-        ...this.userIdObj,
+        ...userIdObj,
         payload,
       }
     );
   }
 
-  deleteAddress(id: string) {
-    return this.http.delete(`http://localhost:3000/api/address/${id}`);
+  deleteAddress(addressId: string) {
+    const params = new HttpParams().set('addressId', addressId);
+
+    return this.http.delete(
+      'http://localhost:3000/api/address/delete-address-by-address-id',
+      {
+        params,
+      }
+    );
   }
 
   getUserById(id: string | null) {

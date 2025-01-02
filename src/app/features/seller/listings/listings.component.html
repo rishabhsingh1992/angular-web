@@ -1,0 +1,65 @@
+<div style="background-color: #d3d3d3">
+  <div class="d-flex justify-content-between px-2 py-4">
+    <h1>Listings</h1>
+
+    <button
+      type="button"
+      class="btn btn-info text-white text-uppercase"
+      routerLink="add"
+    >
+      Add new listing
+    </button>
+  </div>
+</div>
+<div class="m-2">
+  <table class="table table-bordered table-hover">
+    <thead>
+      <tr>
+        <th scope="col" class="text-center">#</th>
+        <th scope="col" class="text-start">Product Details</th>
+        <th scope="col" class="text-end">Price</th>
+        <th scope="col" class="text-end">Stock</th>
+        <th scope="col" class="text-start">Category</th>
+        <th scope="col" class="text-center">Action</th>
+        <th scope="col" class="text-center"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let listing of listings; index as i">
+        <td scope="row" class="text-center">{{ i + 1 }}</td>
+        <td class="text-start">{{ listing.name }}</td>
+        <td class="text-end">{{ listing.price }}</td>
+        <td class="text-end">{{ listing.stock }}</td>
+        <td class="text-start">
+          {{ listing.category | sellerListingsCategoryTransform }}
+        </td>
+        <td
+          class="text-center edit-listing"
+          (click)="editListing(listing.slug)"
+        >
+          {{ "Edit Listing" }}
+        </td>
+        <td
+          class="dropdown text-center actionButtonContainer"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          <div class="actionButton">
+            <i class="bi bi-three-dots-vertical"></i>
+          </div>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Action</a></li>
+            <li (click)="deleteListing()">
+              <a class="dropdown-item" href="#">
+                <div class="d-flex justify-content-between delete-listing">
+                  <span>Delete</span>
+                  <i class="bi bi-trash3"></i>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

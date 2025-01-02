@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from '../../../core/services/auth.service';
 import { UserService } from '../../../shared/services/user.service';
-import { OnboardingService } from './onboarding.service';
 
 @Component({
   selector: 'app-onboarding',
@@ -28,7 +28,7 @@ export class OnboardingComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private userService: UserService,
-    private onboardingService: OnboardingService
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -96,12 +96,15 @@ export class OnboardingComponent implements OnInit {
       },
     };
 
-    this.onboardingService.onboardSeller(payload).subscribe((res: any) => {
+    this.userService.onboardSeller(payload).subscribe((res: any) => {
       if (res) {
+        console.log(res);
         const sellerId = res.data.sellerRecord.sellerId;
-        this.userService.updateUserRoles(res.data.roles);
         localStorage.setItem('sellerId', sellerId);
+        localStorage.setItem('roles', JSON.stringify(res.data.roles));
+        this.authService.updateRoles();
         this.navigateToListing();
+        console.log(localStorage.getItem('roles'));
       }
     });
   }

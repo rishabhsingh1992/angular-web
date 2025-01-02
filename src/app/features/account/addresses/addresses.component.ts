@@ -27,7 +27,8 @@ export class AddressesComponent implements OnInit {
       localStorage.getItem('statesAndUnionTerritories') || '[]'
     );
     this.getAllAddresses();
-  }
+    console.log(this.statesAndUnionTerritories);
+  } 
 
   addressForm = this.fb.group({
     firstName: [null, [Validators.required]],
@@ -58,9 +59,10 @@ export class AddressesComponent implements OnInit {
     this.addressForm.patchValue(address);
   }
 
-  deleteAddress(id: string) {
-    this.accountService.deleteAddress(id).subscribe((res) => {
-      if (res === 'success') {
+  deleteAddress(addressId: string) {
+    console.log("addressId", addressId);
+    this.accountService.deleteAddress(addressId).subscribe((res:any) => {
+      if (res.status === 'success') {
         this.getAllAddresses();
       }
     });

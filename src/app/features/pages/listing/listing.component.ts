@@ -30,4 +30,8 @@ export class ListingComponent implements OnInit {
         console.log("info", this.listing);
       });
   }
+
+  addToCart() {
+    console.log("Added to cart", this.listing);
+  }
 }

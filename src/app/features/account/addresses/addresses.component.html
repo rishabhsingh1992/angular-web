@@ -98,7 +98,7 @@
             formControlName="state"
             aria-label="state"
           >
-            <option value="" selected disabled>
+            <option [value]="null" selected disabled>
               Select state or union territory
             </option>
             <option
@@ -122,10 +122,11 @@
         </div>
         <div class="col">
           <input
-            type="number"
+            type="text"
             formControlName="postalCode"
             class="form-control"
             placeholder="Postal code"
+            maxlength="6"
           />
         </div>
       </div>
@@ -217,7 +218,7 @@
                 <button
                   type="button"
                   class="dropdown-item"
-                  (click)="deleteAddress('123')"
+                  (click)="deleteAddress(address.addressId!)"
                 >
                   Delete
                 </button>

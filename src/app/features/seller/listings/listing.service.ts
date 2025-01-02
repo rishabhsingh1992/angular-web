@@ -22,14 +22,23 @@ export class ListingService {
     return this._listingId;
   }
 
+  getSellerId() {
+    return localStorage.getItem('sellerId');
+  }
+
   getAllCategories() {
     return this.http.get('http://localhost:3000/api/category');
   }
 
   getAllListings(sellerId: string | null) {
-    const params = sellerId ? new HttpParams().set('sellerId', sellerId) : new HttpParams();
+    const params = sellerId
+      ? new HttpParams().set('sellerId', sellerId)
+      : new HttpParams();
 
-    return this.http.get('http://localhost:3000/api/listings/get-listings-by-seller-id', { params });
+    return this.http.get(
+      'http://localhost:3000/api/listings/get-listings-by-seller-id',
+      { params }
+    );
   }
 
   getListingById(listingId: string | null) {
@@ -46,11 +55,17 @@ export class ListingService {
     );
   }
 
-  addListing(id: string | null, listingPayload: any) {
+  addListing(body: any) {
+    const sellerId = this.getSellerId();
+    
+    const params = sellerId
+      ? new HttpParams().set('sellerId', sellerId)
+      : new HttpParams();
+
     return this.http.post(
       'http://localhost:3000/api/listing/add-listing',
-      // 'https://test1334-b2aaahhdh9d5bkhk.southindia-01.azurewebsites.net/api/Product/AddProducts',
-      { listingPayload, ...this.userIdObj }
+      body,
+      { params }
     );
   }
 

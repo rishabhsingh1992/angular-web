@@ -11,7 +11,6 @@ import { ListingService } from '../listing.service';
 export class ListingComponent implements OnInit {
   path: string = '';
   edit: boolean = false;
-  userId: string | null = null;
   categories: any;
   listingId: string | null = null;
 
@@ -29,7 +28,6 @@ export class ListingComponent implements OnInit {
     this.path = this.route.snapshot.routeConfig?.path?.split('/')[0] || '';
 
     this.edit = this.path === 'edit' ? true : false;
-    this.userId = localStorage.getItem('id');
     this.categories = localStorage.getItem('categories');
 
     if (this.categories) {
@@ -45,12 +43,10 @@ export class ListingComponent implements OnInit {
     if (this.edit) {
       this.route.paramMap.subscribe((params) => {
         this.listingId = params.get('listingId');
-        console.log('testhellooooo', this.listingId);
         this.getListing();
+        this.listingForm.get('category')?.disable();
       });
     }
-
-    this.listingForm.get('category')?.disable();
   }
 
   initializeListingForm() {
@@ -107,7 +103,6 @@ export class ListingComponent implements OnInit {
   }
 
   addListing() {
-    const id = this.userId;
 
     const listingPayload = {
       name: this.listingForm.value.name,
@@ -126,7 +121,7 @@ export class ListingComponent implements OnInit {
 
     console.log('[Add Listing] Body => ', listingPayload);
 
-    this.listingService.addListing(id, listingPayload).subscribe((res) => {
+    this.listingService.addListing(listingPayload).subscribe((res) => {
       console.log('[Add Listing] API Response => ', res);
       if (res) {
         this.router.navigateByUrl('/seller/listings');

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AccountService } from '../account.service';
 import { UserService } from '../../../shared/services/user.service';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-profile',
@@ -11,7 +11,11 @@ import { UserService } from '../../../shared/services/user.service';
 export class ProfileComponent implements OnInit {
   profileForm: FormGroup = this.fb.group({});
 
-  constructor(private fb: FormBuilder, private userService: UserService) {}
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private userService: UserService
+  ) {}
 
   ngOnInit(): void {
     this.initializeProfileForm();
@@ -29,10 +33,12 @@ export class ProfileComponent implements OnInit {
 
   getUserProfile() {
     this.userService.getUserByUserId().subscribe((res: any) => {
-      this.profileForm.patchValue(res.data);
-
-      this.profileForm.get('firstName')?.disable();
-      this.profileForm.get('lastName')?.disable();
+      if (res) {
+        console.log('profile data', res);
+        this.profileForm.patchValue(res.data);
+        this.profileForm.get('firstName')?.disable();
+        this.profileForm.get('lastName')?.disable();
+      }
     });
   }
 

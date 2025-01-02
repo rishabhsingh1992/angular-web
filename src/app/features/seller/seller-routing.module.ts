@@ -3,13 +3,11 @@ import { RouterModule, Routes } from '@angular/router';
 import { SellerComponent } from './seller.component';
 
 const routes: Routes = [
-  { path: '', component: SellerComponent },
   {
-    path: 'onboarding',
+    path: 'listings',
     loadChildren: () =>
-      import('./onboarding/onboarding.module').then((m) => m.OnboardingModule),
+      import('./listings/listings.module').then((m) => m.ListingsModule),
   },
-  { path: 'listings', loadChildren: () => import('./listings/listings.module').then(m => m.ListingsModule) },
 ];
 
 @NgModule({

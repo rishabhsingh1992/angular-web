@@ -30,7 +30,7 @@ export class AppComponent implements OnInit {
       this.isUserLoggedIn = loginState;
 
       if (this.isUserLoggedIn) {
-        this.userService.getUserRoles().subscribe((userRoles: string[]) => {
+        this.authService.getRoles().subscribe((userRoles: string[]) => {
           this.isUserSeller = userRoles.includes('seller');
         });
       }

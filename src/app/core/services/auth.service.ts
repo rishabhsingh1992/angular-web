@@ -15,9 +15,12 @@ import { Router } from '@angular/router';
 })
 export class AuthService {
   isUserLoggedIn = localStorage.getItem('userId') ? true : false;
-  private loginStateSubject = new BehaviorSubject<boolean>(this.isUserLoggedIn);
+  roles = JSON.parse(localStorage.getItem('roles') || '[]');
 
-  constructor(private http: HttpClient, private router: Router, private userService: UserService) {}
+  private loginStateSubject = new BehaviorSubject<boolean>(this.isUserLoggedIn);
+  private rolesSubject = new BehaviorSubject<string[]>(this.roles);
+
+  constructor(private http: HttpClient, private router: Router) {}
 
   getLoginState() {
     return this.loginStateSubject.asObservable();
@@ -26,6 +29,15 @@ export class AuthService {
   updateLoginState() {
     const loginState = localStorage.getItem('userId') ? true : false;
     this.loginStateSubject.next(loginState);
+  }
+
+  getRoles() {
+    return this.rolesSubject.asObservable();
+  }
+
+  updateRoles() {
+    const roles: string[] = JSON.parse(localStorage.getItem('roles') || '[]');
+    this.rolesSubject.next(roles);
   }
 
   login(loginPayload: IUserLoginRequest) {
@@ -41,8 +53,8 @@ export class AuthService {
           localStorage.setItem('userId', user.id);
           localStorage.setItem('firstName', user.firstName);
           localStorage.setItem('roles', JSON.stringify(user.roles));
-          // this.userService.updateUserRolesLocalStorage(JSON.stringify(user.roles));
           this.updateLoginState();
+          this.updateRoles();
         }
       });
   }
@@ -51,7 +63,7 @@ export class AuthService {
     localStorage.removeItem('userId');
     localStorage.removeItem('firstName');
     localStorage.removeItem('roles');
-    // this.userService.updateUserRolesLocalStorage(null);
+    localStorage.removeItem('sellerId');
     this.updateLoginState();
     this.router.navigate(['/']);
   }
